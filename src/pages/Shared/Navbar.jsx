@@ -13,9 +13,19 @@ const Navbar = () => {
           <a>Our Menu</a>
         </li>
       </Link>
+      <Link to="/shop">
+        <li>
+          <a>Our Shop</a>
+        </li>
+      </Link>
       <Link>
         <li>
           <a>Contact Us</a>
+        </li>
+      </Link>
+      <Link to='/login'>
+        <li>
+          <a>Log In</a>
         </li>
       </Link>
     </>
