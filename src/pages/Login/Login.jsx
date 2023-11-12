@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet> <title>Bistro Boss || Login</title> </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content">
           <div className="text-center lg:text-left">
