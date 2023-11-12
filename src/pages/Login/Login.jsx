@@ -1,10 +1,14 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
+
+  const { signin } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -12,14 +16,18 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(email, password);
+    // console.log(email, password);
+    signin(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
   };
 
   const handleCaptcha = (e) => {
     const user_captcha_value = e.target.value;
     console.log(user_captcha_value);
     if (validateCaptcha(user_captcha_value) == true) {
-    //   alert("Captcha Matched");
+      //   alert("Captcha Matched");
     } else {
       alert("Captcha Does Not Match");
     }
@@ -73,6 +81,7 @@ const Login = () => {
                 <button className="btn btn-primary">Login</button>
               </div>
             </form>
+            <p><small>New Here? <Link to="/signup">Create an account</Link></small></p>
           </div>
         </div>
       </div>
