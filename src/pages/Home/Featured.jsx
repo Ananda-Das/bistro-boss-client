@@ -2,7 +2,7 @@ import SectionTitle from "../../components/SectionTitle";
 
 const Featured = () => {
   return (
-    <div className="bg-[url('../../../src/assets/home/featured.jpg')] bg-cover  p-20 mt-10 mb-10 bg-fixed">
+    <div className=" my-bg bg-cover  p-20 mt-10 mb-10 bg-fixed">
       <SectionTitle subHeading={"Check it out"} heading={"FROM OUR MENU"}></SectionTitle>
 
       <div className="flex gap-4 items-center mt-7 bg-black bg-opacity-30 mb-7">
