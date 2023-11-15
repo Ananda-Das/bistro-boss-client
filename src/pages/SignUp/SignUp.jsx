@@ -2,24 +2,49 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const { createuser } = useContext(AuthContext);
+  const { createuser, updateUserProfile } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
+    console.log(data);
     createuser(data.email, data.password).then((result) => {
-      console.log(result);
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          console.log("user profile info updated");
+          reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User created successfully.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/");
+        })
+        .catch((error) => console.log(error));
     });
   };
 
   return (
     <div>
-      <Helmet> <title>Bistro Boss || Signup</title> </Helmet>
+      <Helmet>
+        {" "}
+        <title>Bistro Boss || Signup</title>{" "}
+      </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
