@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 const Login = () => {
@@ -10,6 +10,11 @@ const Login = () => {
   }, []);
 
   const { signin } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // const from = location.state?.form?.pathname || "/";
+  // console.log('state in the location', location.state);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,6 +26,7 @@ const Login = () => {
     signin(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      navigate(location?.state ? location.state : "/");
     });
   };
 
@@ -36,7 +42,10 @@ const Login = () => {
 
   return (
     <div>
-      <Helmet> <title>Bistro Boss || Login</title> </Helmet>
+      <Helmet>
+        {" "}
+        <title>Bistro Boss || Login</title>{" "}
+      </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content">
           <div className="text-center lg:text-left">
@@ -83,7 +92,11 @@ const Login = () => {
                 <button className="btn btn-primary">Login</button>
               </div>
             </form>
-            <p><small>New Here? <Link to="/signup">Create an account</Link></small></p>
+            <p>
+              <small>
+                New Here? <Link to="/signup">Create an account</Link>
+              </small>
+            </p>
           </div>
         </div>
       </div>
